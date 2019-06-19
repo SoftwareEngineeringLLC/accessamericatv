@@ -18,8 +18,13 @@ class Stream extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.currentState;
-    this.state.modalShow = false;
     currentState = this.state;
+
+    this.showVideo = this.showVideo.bind(this);
+    this.showSched = this.showSched.bind(this);
+
+    console.log("Stream constructor");
+    console.log(currentState);
   }
 
   stationThumbnailRef = React.createRef();
@@ -30,6 +35,8 @@ class Stream extends React.Component {
   stationPhoneRef = React.createRef();
   stationEmailRef = React.createRef();
   stationWebsite = React.createRef();
+  showVideo = React.createRef();
+  showSched = React.createRef();
 
   updateStation = e => {
     // e.preventDefault();
@@ -45,8 +52,22 @@ class Stream extends React.Component {
       return stations.stationID === currentState.currentStationID;
     }
     currentState.station = this.state.stations.filter(isCurrent)[0];
-
     this.setState(currentState);
+
+    console.log("updateStation");
+    console.log(this.state);
+  };
+
+  showVideo = e => {
+    var v = JSON.stringify(e);
+    console.log("showVideo");
+    console.log(v);
+  };
+
+  showSched = e => {
+    var s = JSON.stringify(e);
+    console.log("showSched");
+    console.log(s);
   };
 
   channelStream = e => {
@@ -79,15 +100,14 @@ class Stream extends React.Component {
             broadcasting or search for another Community Media Center to watch
             one of their live streams.
           </p>
-
           <ColoredLine color="grey" />
-          <h5>Current Station</h5>
+          <h5>Current Center</h5>
           <Row>
             <Col xs="auto">
               <Image
                 name="currentStationThumbnail"
-                height="125px"
-                width="175px"
+                height="60px"
+                width="80px"
                 ref={this.stationThumbnailRef}
                 src={this.state.station.stationThumbnail}
               />
@@ -144,18 +164,35 @@ class Stream extends React.Component {
                 </Col>
               </Row>
             </Col>
+            <Col xs="auto">
+              <DropdownButton
+                title=" Choose Another Center"
+                variant="secondary"
+                drop="down"
+                key="left"
+                id="dropdown-button-drop-left"
+                onSelect={this.updateStation}
+              >
+                {this.state.stations.map(station => (
+                  <DropdownItem eventKey={station.stationID}>
+                    <b>{station.stationID}</b>: {this.state.station.stationCity}
+                    , {this.state.station.stationState}
+                  </DropdownItem>
+                ))}
+              </DropdownButton>
+            </Col>
           </Row>
-
+          <p />
           <Row>
             <Col>
               <center>
                 <DropdownButton
-                  drop="down"
-                  title="Select A Community Media Center"
+                  title="View Our Programming Schedule"
                   variant="secondary"
-                  size="sm"
-                  id="Drop"
+                  drop="down"
+                  fa-align-center
                   onSelect={this.updateStation}
+                  block
                 >
                   {this.state.stations.map(station => (
                     <DropdownItem eventKey={station.stationID}>
@@ -168,20 +205,20 @@ class Stream extends React.Component {
               </center>
             </Col>
           </Row>
-          <ColoredLine color="grey" />
-          <h5>Station Channels</h5>
+          <h5>Channels</h5>
           <p />
           {this.state.station.stationChannels.map(channel => (
             <Row>
               <Col xs="auto">
-                <ShowStreamVideo channelSched={channel} />
-                {/*                 <Image
-                  height="65px"
-                  width="90px"
+                <ShowStreamVideo channel={channel} />
+                {/* 
+                <Image
+                  height="60px"
+                  width="80px"
                   src={channel.channelThumbnail}
-                  onClick={() => this.channelStream(channel.channelStreamURI)}
+                  onClick={() => this.showVideo(channel)}
                 />
- */}
+ */}{" "}
               </Col>
               <Col>
                 <Row>
@@ -193,8 +230,16 @@ class Stream extends React.Component {
                   <Col>{channel.channelDesc}</Col>
                 </Row>
               </Col>
-              <Col>
-                <ShowStreamSched channelSched={channel} />
+              <Col xs="auto">
+                <ShowStreamSched channel={channel} />
+                {/* 
+                <Image
+                  height="75px"
+                  width="75px"
+                  src="./img/noun_Calendar_2532314-100x100.png"
+                  onClick={() => this.showSched(channel)}
+                />
+ */}
               </Col>
             </Row>
           ))}

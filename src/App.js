@@ -42,41 +42,42 @@ var currentState = {};
 // This is what makes it go!
 const BaseLayout = () => (
   <div className="base">
-    <header className="App-header">
-      <Navbar variant="dark" expand="md">
-        <NavbarBrand href="/">
-          <Image src={imgLogo} alt="MetroEast" />
-        </NavbarBrand>
-        <NavbarToggle aria-controls="basic-navbar-nav" />
-        <NavbarCollapse
-          className="justify-content-center"
-          id="basic-navbar-nav"
-        >
-          <Nav className="mr-auto">
-            <NavLink href="/Stream">
-              <Image src={imgPlay} alt="Stream" />
-              <p align="center">Stream</p>
-            </NavLink>
-            <NavLink href="/Explore">
-              <Image src={imgExplore} alt="Explore" />
-              <p align="center">Explore</p>
-            </NavLink>
-            <NavLink href="/Library">
-              <Image src={imgLibrary} alt="Library" />
-              <p align="center">Library</p>
-            </NavLink>
-            <NavLink href="/Info">
-              <Image src={imgInfo} alt="Info" />
-              <p align="center">Info</p>
-            </NavLink>
-          </Nav>
-          <NavLink className="mr" href="/User">
-            <Image src={imgUser} alt="User" />
-            <p align="center">User</p>
+    <Navbar variant="dark" expand="md">
+      <NavbarBrand href="/">
+        <Image
+          src={imgLogo}
+          width="111"
+          height="70"
+          className="d-inline-block align-top"
+          alt="MetroEast"
+        />
+      </NavbarBrand>
+      <NavbarToggle aria-controls="basic-navbar-nav" />
+      <NavbarCollapse className="justify-content-center" id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <NavLink href="/Stream">
+            <Image src={imgPlay} alt="Stream" />
+            <p align="center">Stream</p>
           </NavLink>
-        </NavbarCollapse>
-      </Navbar>
-    </header>
+          <NavLink href="/Explore">
+            <Image src={imgExplore} alt="Explore" />
+            <p align="center">Explore</p>
+          </NavLink>
+          <NavLink href="/Library">
+            <Image src={imgLibrary} alt="Library" />
+            <p align="center">Library</p>
+          </NavLink>
+          <NavLink href="/Info">
+            <Image src={imgInfo} alt="Info" />
+            <p align="center">Info</p>
+          </NavLink>
+        </Nav>
+        <NavLink className="mr" href="/User">
+          <Image src={imgUser} alt="User" />
+          <p align="center">User</p>
+        </NavLink>
+      </NavbarCollapse>
+    </Navbar>
     <div className="container">
       <Switch>
         <Route
@@ -126,27 +127,15 @@ const BaseLayout = () => (
           target="_blank"
         >
           {" "}
-          EnterMedia
+          EnterMediaDB
         </a>
         <br />
         <a
-          href="http://creativecommons.org/licenses/by-sa/4.0/"
+          href="https://unlicense.org/"
           rel="noopener noreferrer"
           target="_blank"
         >
-          <Image
-            alt="Creative Commons License"
-            src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
-          />
-        </a>
-        <br />
-        Licensed under a{" "}
-        <a
-          href="http://creativecommons.org/licenses/by-sa/4.0/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Creative Commons Attribution-ShareAlike 4.0 International License
+          This software is in the Public Domain
         </a>
       </p>
     </footer>
@@ -154,8 +143,8 @@ const BaseLayout = () => (
 );
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     // initial blank state
     this.state = defaultState;
     // console.log("App.constructor");
@@ -166,8 +155,8 @@ class App extends React.Component {
     // First run update localStorage using defaultState in defaults.js
     currentState = initAppState();
     this.setState(currentState);
-    console.log("App.componentWillMount");
-    console.log(currentState);
+    // console.log("App.componentWillMount");
+    // console.log(currentState);
   }
 
   render() {
