@@ -16,7 +16,7 @@ import NavLink from "react-bootstrap/NavLink";
 // import { LinkContainer } from "react-router-bootstrap/lib/LinkContainer";
 
 import imgLogo from "./img/metroeast_logo_111x70.png";
-import imgPlay from "./img/noun_Play_961762_50x50.png";
+// import imgPlay from "./img/noun_Play_961762_50x50.png";
 import imgExplore from "./img/noun_Explorer_1749805_50x50.png";
 import imgLibrary from "./img/noun_Library_2269599_50x50.png";
 import imgInfo from "./img/noun_Help_677616.png";
@@ -46,8 +46,8 @@ const BaseLayout = () => (
       <NavbarBrand href="/">
         <Image
           src={imgLogo}
-          width="111"
-          height="70"
+          width="55"
+          height="35"
           className="d-inline-block align-top"
           alt="MetroEast"
         />
@@ -55,10 +55,12 @@ const BaseLayout = () => (
       <NavbarToggle aria-controls="basic-navbar-nav" />
       <NavbarCollapse className="justify-content-center" id="basic-navbar-nav">
         <Nav className="mr-auto">
+          {/* 
           <NavLink href="/Stream">
             <Image src={imgPlay} alt="Stream" />
             <p align="center">Stream</p>
           </NavLink>
+*/}
           <NavLink href="/Explore">
             <Image src={imgExplore} alt="Explore" />
             <p align="center">Explore</p>
@@ -72,12 +74,15 @@ const BaseLayout = () => (
             <p align="center">Info</p>
           </NavLink>
         </Nav>
+        {/* 
         <NavLink className="mr" href="/User">
           <Image src={imgUser} alt="User" />
           <p align="center">User</p>
         </NavLink>
+*/}
       </NavbarCollapse>
     </Navbar>
+
     <div className="container">
       <Switch>
         <Route
@@ -110,7 +115,7 @@ const BaseLayout = () => (
     </div>
     <footer>
       <ColoredLine color="grey" />
-      <p align="center">
+      <p className="copyright" align="center">
         Powered by
         <a
           href="https://metroeast.org"
@@ -131,11 +136,12 @@ const BaseLayout = () => (
         </a>
         <br />
         <a
-          href="https://unlicense.org/"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
           rel="noopener noreferrer"
           target="_blank"
         >
-          This software is in the Public Domain
+          © Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA
+          4.0)
         </a>
       </p>
     </footer>
@@ -147,6 +153,7 @@ class App extends React.Component {
     super(props, context);
     // initial blank state
     this.state = defaultState;
+    this.state = { station: {} };
     // console.log("App.constructor");
     // console.log(this);
   }
@@ -154,7 +161,14 @@ class App extends React.Component {
   componentWillMount() {
     // First run update localStorage using defaultState in defaults.js
     currentState = initAppState();
+
+    function isCurrent(stations) {
+      return stations.stationID === currentState.homeID;
+    }
+    currentState.station = currentState.stations.filter(isCurrent)[0];
+
     this.setState(currentState);
+
     // console.log("App.componentWillMount");
     // console.log(currentState);
   }

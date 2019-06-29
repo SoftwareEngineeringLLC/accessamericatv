@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.f5da36ea.chunk.css",
+    "main.js": "/static/js/main.1a5b33a3.chunk.js",
+    "main.js.map": "/static/js/main.1a5b33a3.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/js/2.b0edef31.chunk.js": "/static/js/2.b0edef31.chunk.js",
+    "static/js/2.b0edef31.chunk.js.map": "/static/js/2.b0edef31.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f5188ebbdc0043764231554331ada9ba.js": "/precache-manifest.f5188ebbdc0043764231554331ada9ba.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.f5da36ea.chunk.css.map": "/static/css/main.f5da36ea.chunk.css.map",
+    "static/media/metroeast_logo_111x70.png": "/static/media/metroeast_logo_111x70.a12b36e9.png"
+  }
+}
