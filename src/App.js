@@ -45,7 +45,12 @@ var currentState = {};
 // This is what makes it go!
 const BaseLayout = () => (
   <div className="base">
-    <Navbar variant="dark" expand="md">
+    <Navbar
+      className="navbar-dark sticky-top"
+      style={{ zIndex: 1000, backgroundColor: `rgb(39,43,48)` }}
+      variant="dark"
+      expand="md"
+    >
       <NavbarBrand href="/">
         <Row>
           <Col>
