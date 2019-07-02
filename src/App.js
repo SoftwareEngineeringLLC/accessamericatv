@@ -11,16 +11,19 @@ import NavbarBrand from "react-bootstrap/NavbarBrand";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import Nav from "react-bootstrap/Nav";
-import NavLink from "react-bootstrap/NavLink";
+// import NavLink from "react-bootstrap/NavLink";
 // import NavItem from "react-bootstrap/NavItem";
 // import { LinkContainer } from "react-router-bootstrap/lib/LinkContainer";
 
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 import imgLogo from "./img/metroeast_logo_111x70.png";
-import imgPlay from "./img/noun_Play_961762_50x50.png";
-import imgExplore from "./img/noun_Explorer_1749805_50x50.png";
-import imgLibrary from "./img/noun_Library_2269599_50x50.png";
-import imgInfo from "./img/noun_Help_677616.png";
-import imgUser from "./img/noun_User_2277771_50x50.png";
+// import imgPlay from "./img/noun_Play_961762_50x50.png";
+// import imgExplore from "./img/noun_Explorer_1749805_50x50.png";
+// import imgLibrary from "./img/noun_Library_2269599_50x50.png";
+// import imgInfo from "./img/noun_Help_677616.png";
+// import imgUser from "./img/noun_User_2277771_50x50.png";
 
 import "./css/bootstrap.min.css";
 
@@ -42,41 +45,57 @@ var currentState = {};
 // This is what makes it go!
 const BaseLayout = () => (
   <div className="base">
-    <header className="App-header">
-      <Navbar variant="dark" expand="md">
-        <NavbarBrand href="/">
-          <Image src={imgLogo} alt="MetroEast" />
-        </NavbarBrand>
-        <NavbarToggle aria-controls="basic-navbar-nav" />
-        <NavbarCollapse
-          className="justify-content-center"
-          id="basic-navbar-nav"
-        >
-          <Nav className="mr-auto">
-            <NavLink href="/Stream">
-              <Image src={imgPlay} alt="Stream" />
-              <p align="center">Stream</p>
-            </NavLink>
-            <NavLink href="/Explore">
-              <Image src={imgExplore} alt="Explore" />
-              <p align="center">Explore</p>
-            </NavLink>
-            <NavLink href="/Library">
-              <Image src={imgLibrary} alt="Library" />
-              <p align="center">Library</p>
-            </NavLink>
-            <NavLink href="/Info">
-              <Image src={imgInfo} alt="Info" />
-              <p align="center">Info</p>
-            </NavLink>
-          </Nav>
-          <NavLink className="mr" href="/User">
-            <Image src={imgUser} alt="User" />
-            <p align="center">User</p>
+    <Navbar
+      className="navbar-dark sticky-top"
+      style={{ zIndex: 1000, backgroundColor: `rgb(39,43,48)` }}
+      variant="dark"
+      expand="md"
+    >
+      <NavbarBrand href="/">
+        <Row>
+          <Col>
+            <Image
+              src={imgLogo}
+              width="55"
+              height="35"
+              className="d-inline-block align-top"
+              alt="MetroEast"
+            />
+          </Col>
+          <Col>{currentState.homeID} presents:</Col>
+        </Row>
+      </NavbarBrand>
+      <NavbarToggle aria-controls="basic-navbar-nav" />
+      <NavbarCollapse className="justify-content-center" id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          {/* 
+          <NavLink href="/Stream">
+            <Image src={imgPlay} alt="Stream" />
+            <p align="center">Stream</p>
           </NavLink>
-        </NavbarCollapse>
-      </Navbar>
-    </header>
+          <NavLink href="/Explore">
+            <Image src={imgExplore} alt="Explore" />
+            <p align="center">Explore</p>
+          </NavLink>
+          <NavLink href="/Library">
+            <Image src={imgLibrary} alt="Library" />
+            <p align="center">Library</p>
+          </NavLink>
+          <NavLink href="/Info">
+            <Image src={imgInfo} alt="Info" />
+            <p align="center">Info</p>
+          </NavLink>
+          {*/}
+        </Nav>
+        {/* 
+        <NavLink className="mr" href="/User">
+          <Image src={imgUser} alt="User" />
+          <p align="center">User</p>
+        </NavLink>
+*/}
+      </NavbarCollapse>
+    </Navbar>
+
     <div className="container">
       <Switch>
         <Route
@@ -109,7 +128,7 @@ const BaseLayout = () => (
     </div>
     <footer>
       <ColoredLine color="grey" />
-      <p align="center">
+      <p className="copyright" align="center">
         Powered by
         <a
           href="https://metroeast.org"
@@ -126,27 +145,16 @@ const BaseLayout = () => (
           target="_blank"
         >
           {" "}
-          EnterMedia
+          EnterMediaDB
         </a>
         <br />
         <a
-          href="http://creativecommons.org/licenses/by-sa/4.0/"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
           rel="noopener noreferrer"
           target="_blank"
         >
-          <Image
-            alt="Creative Commons License"
-            src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
-          />
-        </a>
-        <br />
-        Licensed under a{" "}
-        <a
-          href="http://creativecommons.org/licenses/by-sa/4.0/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Creative Commons Attribution-ShareAlike 4.0 International License
+          © Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA
+          4.0)
         </a>
       </p>
     </footer>
@@ -154,10 +162,11 @@ const BaseLayout = () => (
 );
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     // initial blank state
     this.state = defaultState;
+    this.state = { station: {} };
     // console.log("App.constructor");
     // console.log(this);
   }
@@ -165,9 +174,16 @@ class App extends React.Component {
   componentWillMount() {
     // First run update localStorage using defaultState in defaults.js
     currentState = initAppState();
+
+    function isCurrent(stations) {
+      return stations.stationID === currentState.homeID;
+    }
+    currentState.station = currentState.stations.filter(isCurrent)[0];
+
     this.setState(currentState);
-    console.log("App.componentWillMount");
-    console.log(currentState);
+
+    // console.log("App.componentWillMount");
+    // console.log(currentState);
   }
 
   render() {

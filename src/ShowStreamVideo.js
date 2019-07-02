@@ -1,62 +1,43 @@
 import React from "react";
-import Modal from "react-bootstrap/Modal";
-import ModalBody from "react-bootstrap/ModalBody";
-import ModalDialog from "react-bootstrap/ModalDialog";
-import ModalFooter from "react-bootstrap/ModalFooter";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
+import Modal from "react-bootstrap-modal/lib/Modal";
+import ModalBody from "react-bootstrap-modal/lib/Body";
+import ModalFooter from "react-bootstrap-modal/lib/Footer";
+import ModalHeader from "react-bootstrap-modal/lib/Header";
+import ModalTitle from "react-bootstrap-modal/lib/Title";
 
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
-
-import ResponsiveEmbed from "react-bootstrap/ResponsiveEmbed";
-import Iframe from "react-iframe";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Iframe from "react-iframe";
 
 import "./css/bootstrap.min.css";
 // import "react-bootstrap-modal/lib/css/rbm-complete.css";
-
-// import "./css/custom-modal.css";
-
-/* 
-      <div>
-        <h2>
-          {this.state.channelSched.channelTitle}:{" "}
-          <i>{this.state.channelSched.channelAssignment}</i>
-        </h2>
-        <Iframe
-          height="100%"
-          width="100%"
-          url={this.state.channelSched.channelStreamURI}
-        />
-      </div>
- */
+import "./css/rbm-complete.css";
+// import "./css/modal.css";
 
 class ShowStreamVideo extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handleShow = this.handleShow.bind(this);
-    this.handleHide = this.handleHide.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
 
     this.state = {
       show: false,
-      channelSched: this.props.channelSched
+      channel: this.props.channel
     };
 
-    console.log("ShowStreamSched");
+    console.log("ShowStreamVideo");
     console.log(this);
   }
 
-  handleHide = e => {
+  hideModal() {
     this.setState({ show: false });
-    console.log("handleHide");
-    console.log(this.state);
-  };
+  }
 
-  handleShow = e => {
-    console.log("handleShow");
+  showModal = e => {
+    console.log("showModal");
     console.log(e);
     this.setState({ show: true });
   };
@@ -65,35 +46,37 @@ class ShowStreamVideo extends React.Component {
     return (
       <>
         <Image
-          height="65px"
-          width="90px"
-          src={this.state.channelSched.channelThumbnail}
-          onClick={() => this.handleShow(this.state.channelSched)}
+          height="60px"
+          width="80px"
+          src={this.state.channel.channelThumbnail}
+          onClick={() => this.showModal(this.state.channe)}
         />
-
-        <Modal show={this.state.show} onHide={this.handleHide}>
+        <Modal show={this.state.show} onHide={this.hideModal} backdrop="static">
           <ModalHeader closeButton>
             <ModalTitle>
-              {this.state.channelSched.channelTitle}:<br />
-              <i>{this.state.channelSched.channelAssignment}</i>
+              {this.state.channel.channelTitle}:{" "}
+              <i>{this.state.channel.channelAssignment}</i>
             </ModalTitle>
           </ModalHeader>
           <ModalBody>
-            <Iframe url={this.state.channelSched.channelStreamURI} />
+            <Iframe
+              height="375px"
+              width="470px"
+              url={this.state.channel.channelStreamURI}
+            />
           </ModalBody>
-          {/* 
+
           <ModalFooter>
             <Button
               size="sm"
               variant="secondary"
-              onClick={this.handleClose}
+              onClick={this.hideModal}
               fa-align-center
               block
             >
               Done
             </Button>
           </ModalFooter>
-				 */}
         </Modal>
       </>
     );

@@ -1,230 +1,156 @@
 // helpers.js
 import React from "react";
 
+import { moment } from "moment";
+
 import { defaultState } from "./defaults";
+import { defaultSchedEntry } from "./defaults";
 
-const msecsPerDay = 86400;
+import schedJSON from "./MetroEastSched.json";
 
-// The JSON structures below are place holders to be used in development
+// var stationSchedURI = {};
 
-var sl = {
-  homeID: "MetroEast",
-  homeServerURI: "https://dam.metroeast.org",
-  currentStationID: "MetroEast",
-  lastUpdated: "1560559380601",
-  station: {
-    stationID: "MetroEast",
-    stationServerURI: "https://dam.metroeast.org",
-    stationThumbnail: "/img/metroeast_logo_111x70.png",
-    stationName: "MetroEast Community Media",
-    stationStreet: "829 NE 8th Street",
-    stationCity: "Gresham",
-    stationST: "OR",
-    stationState: "Oregon",
-    stationZip: "97030",
-    stationPhone: "(503) 667-8848",
-    stationEmail: "info@metroeast.org",
-    stationWebsite: "https://www.metroeast.org/",
-    stationAutomation: "Telvue",
-    stationChannels: [
-      {
-        channelID: "1",
-        channelTitle: "Community Access",
-        channelAssignment: "Comcast 331/11, Frontier 22",
-        channelDesc: "Programming by MetroEast volunteers and partners.",
-        channelThumbnail: "/img/channel_CommunityAccess-175x125.png",
-        channelSchedURI:
-          "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=1",
-        channelStreamURI:
-          "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/211?fullscreen=true&showtabssearch=false&autostart=true"
-      },
-      {
-        channelID: "2",
-        channelTitle: "MetroEast Local",
-        channelAssignment: "CenturyLink 321/21, Frontier 32",
-        channelDesc: "Programming by MetroEast staff and volunteers.",
-        channelThumbnail: "/img/channel_MetroEastLocal-175x125.png",
-        channelSchedURI:
-          "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=2",
-        channelStreamURI:
-          "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/206?fullscreen=true&showtabssearch=false&autostart=true"
-      },
-      {
-        channelID: "3",
-        channelTitle: "Public Affairs",
-        channelAssignment: "Comcast 322/22, Frontier 33",
-        channelDesc: "Public affairs programming by MetroEast partners",
-        channelThumbnail: "/img/channel_PublicAffairs-175x125.png",
-        channelSchedURI:
-          "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=3",
-        channelStreamURI:
-          "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/207?fullscreen=true&showtabssearch=false&autostart=true"
-      },
-      {
-        channelID: "4",
-        channelTitle: "Education & Arts",
-        channelAssignment: "Comcast 327/27, Frontier 35",
-        channelDesc: "Education & Arts programming from a variety of sources.",
-        channelThumbnail: "/img/channel_Education-Arts-175x125.png",
-        channelSchedURI:
-          "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=4",
-        channelStreamURI:
-          "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/208?fullscreen=true&showtabssearch=false&autostart=true"
-      },
-      {
-        channelID: "5",
-        channelTitle: "Regional",
-        channelAssignment: "Comcast 329/29, Frontier 37",
-        channelDesc:
-          "Programming by MetroEast and other community media centers.",
-        channelThumbnail: "/img/channel_Regional-175x125.png",
-        channelSchedURI:
-          "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=5",
-        channelStreamURI:
-          "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/209?fullscreen=true&showtabssearch=false&autostart=true"
-      },
-      {
-        channelID: "6",
-        channelTitle: "Municipal",
-        channelAssignment: "Comcast 330/38, Frontier 38",
-        channelDesc: "Programming focused on regional municipal government.",
-        channelThumbnail: "/img/channel_Municipal-175x125.png",
-        channelSchedURI:
-          "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=6",
-        channelStreamURI:
-          "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/210?fullscreen=true&showtabssearch=false&autostart=true"
-      }
-    ]
-  },
-  stations: [
-    {
-      stationID: "CCTV",
-      stationServerURI: "",
-      stationThumbnail: "/img/cctv-logo.png",
-      stationName: "Capital Community Television",
-      stationStreet: "829 NE 8th 575 Trade St SE",
-      stationCity: "Salem",
-      stationST: "OR",
-      stationState: "Oregon",
-      stationZip: "97301",
-      stationPhone: "(503) 588-2288",
-      stationEmail: "cctv@cctvsalem.org",
-      stationWebsite: "https://www.cctvsalem.org/",
-      stationAutomation: "Tightrope",
-      stationChannels: [
-        {
-          channelTitle: "",
-          channelAssignment: "",
-          channelDesc: "",
-          channelThumbnail: "",
-          channelSchedURI: "",
-          channelStreamURI: ""
-        }
-      ]
-    },
-    {
-      stationID: "MetroEast",
-      stationServerURI: "https://dam.metroeast.org",
-      stationThumbnail: "./img/metroeast_logo_111x70.png",
-      stationName: "MetroEast Community Media",
-      stationStreet: "829 NE 8th Street",
-      stationCity: "Gresham",
-      stationST: "OR",
-      stationState: "Oregon",
-      stationZip: "97030",
-      stationPhone: "(503) 667-8848",
-      stationEmail: "info@metroeast.org",
-      stationWebsite: "https://www.metroeast.org/",
-      stationAutomation: "Telvue",
-      stationChannels: [
-        {
-          channelID: "1",
-          channelTitle: "Community Access",
-          channelAssignment: "Comcast 331/11, Frontier 22",
-          channelDesc: "Programming by MetroEast volunteers and partners.",
-          channelThumbnail: "./img/channel_CommunityAccess-175x125.png",
-          channelSchedURI:
-            "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=1",
-          channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/211?fullscreen=true&showtabssearch=false&autostart=true"
-        },
-        {
-          channelID: "2",
-          channelTitle: "MetroEast Local",
-          channelAssignment: "CenturyLink 321/21, Frontier 32",
-          channelDesc: "Programming by MetroEast staff and volunteers.",
-          channelThumbnail: "./img/channel_MetroEastLocal-175x125.png",
-          channelSchedURI:
-            "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=2",
-          channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/206?fullscreen=true&showtabssearch=false&autostart=true"
-        },
-        {
-          channelID: "3",
-          channelTitle: "Public Affairs",
-          channelAssignment: "Comcast 322/22, Frontier 33",
-          channelDesc: "Public affairs programming by MetroEast partners",
-          channelThumbnail: "./img/channel_PublicAffairs-175x125.png",
-          channelSchedURI:
-            "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=3",
-          channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/207?fullscreen=true&showtabssearch=false&autostart=true"
-        },
-        {
-          channelID: "4",
-          channelTitle: "Education & Arts",
-          channelAssignment: "Comcast 327/27, Frontier 35",
-          channelDesc:
-            "Education & Arts programming from a variety of sources.",
-          channelThumbnail: "./img/channel_Education-Arts-175x125.png",
-          channelSchedURI:
-            "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=4",
-          channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/208?fullscreen=true&showtabssearch=false&autostart=true"
-        },
-        {
-          channelID: "5",
-          channelTitle: "Regional",
-          channelAssignment: "Comcast 329/29, Frontier 37",
-          channelDesc:
-            "Programming by MetroEast and other community media centers.",
-          channelThumbnail: "./img/channel_Regional-175x125.png",
-          channelSchedURI:
-            "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=5",
-          channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/209?fullscreen=true&showtabssearch=false&autostart=true"
-        },
-        {
-          channelID: "6",
-          channelTitle: "Municipal",
-          channelAssignment: "Comcast 330/38, Frontier 38",
-          channelDesc: "Programming focused on regional municipal government.",
-          channelThumbnail: "./img/channel_Municipal-175x125.png",
-          channelSchedURI:
-            "https://hc1.mctv.org/xml/program_schedule_feed/?channel_id=6",
-          channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/210?fullscreen=true&showtabssearch=false&autostart=true"
-        }
-      ]
-    },
-    {
-      stationID: "OpenSignal",
-      stationServerURI: "",
-      stationThumbnail: "./img/open-signal-logo.svg",
-      stationName: "Open Signal Portland Community Media Center",
-      stationStreet: "2766 NE Martin Luther King, Jr Blvd",
-      stationCity: "Portland",
-      stationST: "OR",
-      stationState: "Oregon",
-      stationZip: "97212",
-      stationPhone: "(503) 288-1515",
-      stationEmail: "info@opensignalpdx.org",
-      stationWebsite: "https://www.opensignalpdx.org/",
-      stationAutomation: "Tightrope",
-      stationChannels: []
+export function isEmpty(obj) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+  return true;
+}
+
+export class StationSched extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      station: this.props.station,
+      schedData: null
+    };
+
+    // console.log("StationSched constructor");
+    // console.log(this.state);
+  }
+
+  componentDidMount() {
+    // get stationSchedURI
+    const coProxy = "https://crossorigin.me/";
+    const coProxyURI = String(coProxy + this.state.station.stationSchedURI);
+
+    // console.log("stationSchedURI");
+    // console.log(coProxyURI);
+
+    var data = getSchedJSON(this.state.station);
+
+    this.setState({ schedData: data });
+  }
+
+  componentWillUnmount() {
+    // Cancel the xhr request, so the callback is never called
+    if (this.state.xhr && this.state.xhr.readyState !== 4) {
+      // console.log("xhr.abort()");
+      this.state.xhr.abort();
     }
-  ]
-};
+  }
+
+  render() {
+    console.log("StationSched");
+    console.log(this.state.schedData);
+    return <p />;
+    /* 
+    if (this.state.schedData) {
+      return <img src={this.state.schedData[0].url} />;
+    } else {
+      return <div>Loading...</div>;
+    }
+ */
+  }
+}
+
+export function getSchedJSON(currentState) {
+  var schedEntry = defaultSchedEntry;
+
+  var schedule = [];
+
+  // **********************************************
+  // since we can't get schedule data from DAM yet
+  var data = JSON.parse(JSON.stringify(schedJSON));
+  // **********************************************
+
+  var autoType = currentState.stationAutomation;
+  var regex = currentState.stationChannelRegEx;
+  var channelSched = [];
+
+  switch (autoType) {
+    case "Telvue":
+      // exclude any non-active channels
+      var validChannels = data.rss.channel.filter(channel =>
+        channel.hasOwnProperty("item")
+      );
+      // loop through channels
+      for (var entry of validChannels) {
+        // clone empty channelSched
+        // channelSched = [JSON.parse(JSON.stringify(defaultSchedEntry))];
+        channelSched = [];
+        // loop through each schedule entry
+        for (var sched of entry.item) {
+          var schedEntry = JSON.parse(JSON.stringify(defaultSchedEntry));
+
+          // get the current channel number
+          schedEntry.channelID = entry.title.charAt(0);
+          schedEntry.start = sched.hasOwnProperty("pubDate")
+            ? Date.parse(sched.pubDate)
+            : "";
+
+          schedEntry.end = sched.hasOwnProperty("end_datetime")
+            ? Date.parse(sched.end_datetime.__text)
+            : "";
+
+          schedEntry.duration = sched.hasOwnProperty("duration")
+            ? parseInt(sched.duration.__text)
+            : "0";
+
+          schedEntry.title = sched.hasOwnProperty("title") ? sched.title : "";
+
+          schedEntry.desc = sched.hasOwnProperty("description")
+            ? sched.description
+            : "";
+
+          schedEntry.genre = sched.hasOwnProperty("category")
+            ? sched.category
+            : "";
+
+          schedEntry.episode = sched.hasOwnProperty("episode")
+            ? isEmpty(sched.episode)
+              ? ""
+              : JSON.stringify(sched.episode)
+            : "";
+
+          schedEntry.guid = sched.hasOwnProperty("guid") ? sched.guid : "";
+
+          schedEntry.attribute = sched.hasOwnProperty("attribute")
+            ? sched.attribute.length > 0
+              ? JSON.parse(JSON.stringify(schedEntry.attribute))
+              : []
+            : [];
+          // weed out the entries less than a minute
+          if (schedEntry.duration > 60 && schedEntry.end > Date.now()) {
+            // add a schedule entry to the array
+            channelSched.push(schedEntry);
+          }
+        }
+        // add channel schedule to the eschedules
+        schedule.push(channelSched);
+      }
+
+      break;
+
+    default:
+      console.log("Invalid stationAutomation!");
+  }
+
+  // console.log("parseSchedJSON");
+  // console.log(schedule);
+
+  return schedule;
+}
 
 export function updateStorage(currentState) {
   // updateStorage(currentState)
@@ -254,16 +180,17 @@ export function initAppState() {
   // values. Returns updated currentState.
   var key;
   var currentState = defaultState;
+  // **************************************************
+  localStorage.clear();
+  // **************************************************
   // is this the first run?
-  // if (!localStorage.hasOwnProperty("homeID")) {
-  // **** PLACEHOLDER FOR API CALL TO DAM ****
-  currentState = sl;
-  // Create localStorage copy from API call results
-  for (key in currentState) {
-    localStorage.setItem(key, JSON.stringify(currentState[key]));
+  if (!localStorage.hasOwnProperty("homeID")) {
+    // **** PLACEHOLDER FOR API CALL TO DAM ****
+    // Create localStorage copy from API call results
+    for (key in currentState) {
+      localStorage.setItem(key, JSON.stringify(currentState[key]));
+    }
   }
-  // }
-
   // update currentState if storage is newer
   // if a currentState field doesn't exist in storage, add it
   if (currentState.lastUpdated < localStorage.getItem("lastUpdated")) {
@@ -286,6 +213,9 @@ export function initAppState() {
 export function getAllStations() {
   // getAllStations()
   // Returns the list of all centers.
+  // ******************************************************
+  // Fetch from DAM if timeout
+  // ******************************************************
   return JSON.parse(localStorage.getItem("stations"));
 }
 
@@ -307,6 +237,10 @@ export function getCurrentStation() {
   // Returns the current station JSON from storage.
   var currentStationID = {};
   var stations = {};
+  // ******************************************************
+  // Fetch from DAM if timeout
+  // ******************************************************
+
   currentStationID = localStorage.getItem("currentStationID");
   stations = JSON.parse(localStorage.getItem("stations"));
 
@@ -315,3 +249,52 @@ export function getCurrentStation() {
   }
   return stations.filter(isCurrent)[0];
 }
+
+// mappingTelvueSched
+// The fields returned by the JSON mapping of the XML returned by the Telvue
+// automation system will be mapped to those corresponding to the named fields
+// in the defaultStreamState.
+//
+// The channelID field is determined by parsing the first characters in the
+// returned Telvue structure, delimited by a ")" character. These characters
+// will be read as digits and mapped to the channelID field; channels whose
+// leading characters in the title field will be ignored and discarded. Fields
+// with null in this structure will also be ignored when parsing the returned
+// JSON.
+//
+// As other automation systems are supported, their schedule format will be
+// defined in similar data structures
+/* 
+export const mappingTelvueSched = {
+  version: "stations.stationAutoVersion",
+  channel: [
+    {
+      title: "stationSchedule.channelID",
+      description: null,
+      item: [
+        {
+          title: "stationSchedule.title",
+          pubDate: "stationSchedule.startDate",
+          end_datetime: "stationSchedule.endDate",
+          duration: "stationSchedule.duration",
+          programCode: "stationSchedule.programCode",
+          episode: "stationSchedule.episode",
+          episodeCode: "stationSchedule.episodeCode",
+          thumbnail: "stationSchedule.thumbnail",
+          attribute: [
+            {
+              name: "stationSchedule.attribute.name",
+              text: "stationSchedule.attribute.text"
+            }
+          ],
+          description: "stationSchedule.description",
+          link: "stationSchedule.linkURI",
+          category: "stationSchedule.category",
+          vodURL: "stationSchedule.vodURI",
+          guid: "stationSchedule.guid"
+        }
+      ]
+    }
+  ]
+};
+ */

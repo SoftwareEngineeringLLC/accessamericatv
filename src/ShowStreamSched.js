@@ -1,10 +1,9 @@
 import React from "react";
-import Modal from "react-bootstrap/Modal";
-import ModalBody from "react-bootstrap/ModalBody";
-import ModalDialog from "react-bootstrap/ModalDialog";
-import ModalFooter from "react-bootstrap/ModalFooter";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
+import Modal from "react-bootstrap-modal/lib/Modal";
+import ModalBody from "react-bootstrap-modal/lib/Body";
+import ModalFooter from "react-bootstrap-modal/lib/Footer";
+import ModalHeader from "react-bootstrap-modal/lib/Header";
+import ModalTitle from "react-bootstrap-modal/lib/Title";
 
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
@@ -12,31 +11,34 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import "./css/bootstrap.min.css";
+// import "react-bootstrap-modal/lib/css/rbm-complete.css";
+import "./css/rbm-complete.css";
+// import "./css/modal.css";
 
 class ShowStreamSched extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
 
     this.state = {
       show: false,
-      channelSched: this.props.channelSched
+      channel: this.props.channel
     };
 
     console.log("ShowStreamSched");
     console.log(this);
   }
 
-  handleClose() {
+  hideModal() {
     this.setState({ show: false });
   }
 
-  handleShow = e => {
-    console.log("handleShow");
-    console.log(e);
+  showModal = e => {
     this.setState({ show: true });
+    console.log("showModal");
+    console.log(this);
   };
 
   render() {
@@ -46,19 +48,19 @@ class ShowStreamSched extends React.Component {
           height="75px"
           width="75px"
           src="./img/noun_Calendar_2532314-100x100.png"
-          onClick={() => this.handleShow(this.state.channelSched)}
+          onClick={() => this.showModal(this.state.channe)}
         />
 
         <Modal
           size="xl"
           show={this.state.show}
-          onHide={this.handleClose}
+          onHide={this.hideModal}
           backdrop="static"
         >
           <ModalHeader closeButton>
             <ModalTitle>
-              {this.state.channelSched.channelTitle}:{" "}
-              <i>{this.state.channelSched.channelAssignment}</i>
+              {this.state.channel.channelTitle}:{" "}
+              <i>{this.state.channel.channelAssignment}</i>
             </ModalTitle>
           </ModalHeader>
           <ModalBody>
@@ -67,19 +69,22 @@ class ShowStreamSched extends React.Component {
                 <Image
                   height="65px"
                   width="90px"
-                  src={this.state.channelSched.channelThumbnail}
+                  src={this.state.channel.channelThumbnail}
                 />
+                {console.log("ModalImage")}
+                {console.log(this.state.show)}
               </Col>
               <Col>
-                <p>{this.state.channelSched.channelDesc}</p>
+                <p>{this.state.channel.channelDesc}</p>
               </Col>
             </Row>
           </ModalBody>
+
           <ModalFooter>
             <Button
               size="sm"
               variant="secondary"
-              onClick={this.handleClose}
+              onClick={this.hideModal}
               fa-align-center
               block
             >
