@@ -1,10 +1,21 @@
 // helpers.js
 import React from "react";
 
+import { moment } from "moment";
+
 import { defaultState } from "./defaults";
+import { defaultSchedEntry } from "./defaults";
+
+import schedJSON from "./MetroEastSched.json";
 
 // var stationSchedURI = {};
-// var data = {};
+
+export function isEmpty(obj) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+  return true;
+}
 
 export class StationSched extends React.Component {
   constructor(props) {
@@ -26,30 +37,9 @@ export class StationSched extends React.Component {
     // console.log("stationSchedURI");
     // console.log(coProxyURI);
 
-    var data = {};
-    var channelScheds = [];
+    var data = getSchedJSON(this.state.station);
 
-    fetch(String(coProxyURI))
-      /* .then(res => res.json()) */
-      .then(response => {
-        // console.log("response.text");
-        // console.log(response);
-        data = response.text() ? JSON.parse(response.text()) : {};
-        this.setState({ schedData: data });
-      })
-      .catch(console.log);
-    /* 
-    if (Object.keys(data).length == 0) {
-      this.setState({ schedData: sampleTelvueSched });
-    }
- */
-    // console.log("this.state.schedData");
-    // console.log(this.state.schedData);
-
-    channelScheds = this.state.schedData;
-
-    // console.log("channelScheds");
-    // console.log(channelScheds);
+    this.setState({ schedData: data });
   }
 
   componentWillUnmount() {
@@ -61,9 +51,8 @@ export class StationSched extends React.Component {
   }
 
   render() {
-    // console.log("componentDidMount");
-    // console.log(this.state.schedData);
-
+    console.log("StationSched");
+    console.log(this.state.schedData);
     return <p />;
     /* 
     if (this.state.schedData) {
@@ -75,32 +64,92 @@ export class StationSched extends React.Component {
   }
 }
 
-// The JSON structures below are place holders to be used in development
+export function getSchedJSON(currentState) {
+  var schedEntry = defaultSchedEntry;
 
-export function getStationSchedule(station) {
-  // *********************************
-  // This needs to be done by the DAM
-  // *********************************
+  var schedule = [];
 
-  // get stationSchedURI
-  const coProxy = "https://crossorigin.me/";
-  const stationSchedURI = station.stationSchedURI;
-  const coProxyURI = coProxy + stationSchedURI;
+  // **********************************************
+  // since we can't get schedule data from DAM yet
+  var data = JSON.parse(JSON.stringify(schedJSON));
+  // **********************************************
 
-  var scheduleData = {};
+  var autoType = currentState.stationAutomation;
+  var regex = currentState.stationChannelRegEx;
+  var channelSched = [];
 
-  // console.log("getStationSchedule");
-  // console.log(station);
-  // console.log(coProxyURI);
+  switch (autoType) {
+    case "Telvue":
+      // exclude any non-active channels
+      var validChannels = data.rss.channel.filter(channel =>
+        channel.hasOwnProperty("item")
+      );
+      // loop through channels
+      for (var entry of validChannels) {
+        // clone empty channelSched
+        // channelSched = [JSON.parse(JSON.stringify(defaultSchedEntry))];
+        channelSched = [];
+        // loop through each schedule entry
+        for (var sched of entry.item) {
+          var schedEntry = JSON.parse(JSON.stringify(defaultSchedEntry));
 
-  /* fetch("http://jsonplaceholder.typicode.com/todos") */
-  fetch(coProxyURI)
-    //    .then(res => res.json())
-    .then(data => {
-      scheduleData = data;
-      // console.log(scheduleData);
-    })
-    .catch(console.log);
+          // get the current channel number
+          schedEntry.channelID = entry.title.charAt(0);
+          schedEntry.start = sched.hasOwnProperty("pubDate")
+            ? Date.parse(sched.pubDate)
+            : "";
+
+          schedEntry.end = sched.hasOwnProperty("end_datetime")
+            ? Date.parse(sched.end_datetime.__text)
+            : "";
+
+          schedEntry.duration = sched.hasOwnProperty("duration")
+            ? parseInt(sched.duration.__text)
+            : "0";
+
+          schedEntry.title = sched.hasOwnProperty("title") ? sched.title : "";
+
+          schedEntry.desc = sched.hasOwnProperty("description")
+            ? sched.description
+            : "";
+
+          schedEntry.genre = sched.hasOwnProperty("category")
+            ? sched.category
+            : "";
+
+          schedEntry.episode = sched.hasOwnProperty("episode")
+            ? isEmpty(sched.episode)
+              ? ""
+              : JSON.stringify(sched.episode)
+            : "";
+
+          schedEntry.guid = sched.hasOwnProperty("guid") ? sched.guid : "";
+
+          schedEntry.attribute = sched.hasOwnProperty("attribute")
+            ? sched.attribute.length > 0
+              ? JSON.parse(JSON.stringify(schedEntry.attribute))
+              : []
+            : [];
+          // weed out the entries less than a minute
+          if (schedEntry.duration > 60 && schedEntry.end > Date.now()) {
+            // add a schedule entry to the array
+            channelSched.push(schedEntry);
+          }
+        }
+        // add channel schedule to the eschedules
+        schedule.push(channelSched);
+      }
+
+      break;
+
+    default:
+      console.log("Invalid stationAutomation!");
+  }
+
+  // console.log("parseSchedJSON");
+  // console.log(schedule);
+
+  return schedule;
 }
 
 export function updateStorage(currentState) {

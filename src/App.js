@@ -11,16 +11,19 @@ import NavbarBrand from "react-bootstrap/NavbarBrand";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import Nav from "react-bootstrap/Nav";
-import NavLink from "react-bootstrap/NavLink";
+// import NavLink from "react-bootstrap/NavLink";
 // import NavItem from "react-bootstrap/NavItem";
 // import { LinkContainer } from "react-router-bootstrap/lib/LinkContainer";
 
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 import imgLogo from "./img/metroeast_logo_111x70.png";
 // import imgPlay from "./img/noun_Play_961762_50x50.png";
-import imgExplore from "./img/noun_Explorer_1749805_50x50.png";
-import imgLibrary from "./img/noun_Library_2269599_50x50.png";
-import imgInfo from "./img/noun_Help_677616.png";
-import imgUser from "./img/noun_User_2277771_50x50.png";
+// import imgExplore from "./img/noun_Explorer_1749805_50x50.png";
+// import imgLibrary from "./img/noun_Library_2269599_50x50.png";
+// import imgInfo from "./img/noun_Help_677616.png";
+// import imgUser from "./img/noun_User_2277771_50x50.png";
 
 import "./css/bootstrap.min.css";
 
@@ -44,13 +47,18 @@ const BaseLayout = () => (
   <div className="base">
     <Navbar variant="dark" expand="md">
       <NavbarBrand href="/">
-        <Image
-          src={imgLogo}
-          width="55"
-          height="35"
-          className="d-inline-block align-top"
-          alt="MetroEast"
-        />
+        <Row>
+          <Col>
+            <Image
+              src={imgLogo}
+              width="55"
+              height="35"
+              className="d-inline-block align-top"
+              alt="MetroEast"
+            />
+          </Col>
+          <Col>{currentState.homeID} presents:</Col>
+        </Row>
       </NavbarBrand>
       <NavbarToggle aria-controls="basic-navbar-nav" />
       <NavbarCollapse className="justify-content-center" id="basic-navbar-nav">
@@ -60,7 +68,6 @@ const BaseLayout = () => (
             <Image src={imgPlay} alt="Stream" />
             <p align="center">Stream</p>
           </NavLink>
-*/}
           <NavLink href="/Explore">
             <Image src={imgExplore} alt="Explore" />
             <p align="center">Explore</p>
@@ -73,6 +80,7 @@ const BaseLayout = () => (
             <Image src={imgInfo} alt="Info" />
             <p align="center">Info</p>
           </NavLink>
+          {*/}
         </Nav>
         {/* 
         <NavLink className="mr" href="/User">

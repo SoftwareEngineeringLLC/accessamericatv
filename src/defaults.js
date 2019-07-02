@@ -1,26 +1,25 @@
 // defaults.js
 
-// defaultChannelSchedule
-export const defaultChannelSchedule = [
-  {
-    channelID: "",
-    start: "",
-    end: "",
-    duration: "",
-    title: "",
-    desc: "",
-    genre: "",
-    series: "",
-    episode: "",
-    guid: "",
-    attribute: [
-      {
-        name: "",
-        text: ""
-      }
-    ]
-  }
-];
+// default Schedule Entry
+export const defaultSchedEntry = {
+  channelID: "",
+  start: "",
+  end: "",
+  duration: "",
+  title: "",
+  desc: "",
+  genre: "",
+  series: "",
+  episode: "",
+  guid: "",
+  damID: "",
+  attribute: [
+    {
+      name: "",
+      text: ""
+    }
+  ]
+};
 
 // defaultStreamState
 // JSON structure that holds the defaults for the default
@@ -72,8 +71,9 @@ export const defaultState = {
           channelAssignment: "Comcast 331/11, Frontier 22",
           channelDesc: "Programming by MetroEast volunteers and partners.",
           channelThumbnail: "/img/channel_CommunityAccess-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/211?fullscreen=true&showtabssearch=false&autostart=true"
+            "https://t02554-lh.akamaihd.net/i/t02554f_1@497742/master.m3u8"
         },
         {
           channelID: "2",
@@ -81,8 +81,9 @@ export const defaultState = {
           channelAssignment: "CenturyLink 321/21, Frontier 32",
           channelDesc: "Programming by MetroEast staff and volunteers.",
           channelThumbnail: "/img/channel_MetroEastLocal-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/206?fullscreen=true&showtabssearch=false&autostart=true"
+            "https://t02554-lh.akamaihd.net/i/t02554a_1@497737/master.m3u8?set-akamai-hls-revision=5"
         },
         {
           channelID: "3",
@@ -90,8 +91,9 @@ export const defaultState = {
           channelAssignment: "Comcast 322/22, Frontier 33",
           channelDesc: "Public affairs programming by MetroEast partners",
           channelThumbnail: "/img/channel_PublicAffairs-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/207?fullscreen=true&showtabssearch=false&autostart=true"
+            "https://t02554-lh.akamaihd.net/i/t02554b_1@497738/master.m3u8?set-akamai-hls-revision=5"
         },
         {
           channelID: "4",
@@ -100,8 +102,9 @@ export const defaultState = {
           channelDesc:
             "Education & Arts programming from a variety of sources.",
           channelThumbnail: "/img/channel_Education-Arts-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/208?fullscreen=true&showtabssearch=false&autostart=true"
+            "https://t02554-lh.akamaihd.net/i/t02554c_1@497739/master.m3u8"
         },
         {
           channelID: "5",
@@ -110,8 +113,9 @@ export const defaultState = {
           channelDesc:
             "Programming by MetroEast and other community media centers.",
           channelThumbnail: "/img/channel_Regional-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/209?fullscreen=true&showtabssearch=false&autostart=true"
+            "https://t02554-lh.akamaihd.net/i/t02554d_1@497740/master.m3u8"
         },
         {
           channelID: "6",
@@ -119,8 +123,9 @@ export const defaultState = {
           channelAssignment: "Comcast 330/38, Frontier 38",
           channelDesc: "Programming focused on regional municipal government.",
           channelThumbnail: "/img/channel_Municipal-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
-            "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/210?fullscreen=true&showtabssearch=false&autostart=true"
+            "https://t02554-lh.akamaihd.net/i/t02554e_1@497741/master.m3u8"
         }
       ]
     }
@@ -151,10 +156,10 @@ export const tempState = {
       stationEmail: "cctv@cctvsalem.org",
       stationWebsite: "https://www.cctvsalem.org/",
       stationLanguages: [],
-      stationAutomation: "Tightrope",
-      stationAutoVersion: "2.0",
+      stationAutomation: "",
+      stationAutoVersion: "",
       stationChannelRegEx: "",
-      stationSchedURI: "https://hc1.mctv.org/xml/program_schedule_feed/",
+      stationSchedURI: "",
       stationSchedule: [],
       stationChannels: [
         {
@@ -162,6 +167,7 @@ export const tempState = {
           channelAssignment: "",
           channelDesc: "",
           channelThumbnail: "",
+          channelStremFormat: "",
           channelStreamURI: ""
         }
       ]
@@ -200,6 +206,7 @@ export const tempState = {
           channelAssignment: "Comcast 331/11, Frontier 22",
           channelDesc: "Programming by MetroEast volunteers and partners.",
           channelThumbnail: "/img/channel_CommunityAccess-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
             "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/211?fullscreen=true&showtabssearch=false&autostart=true"
         },
@@ -218,6 +225,7 @@ export const tempState = {
           channelAssignment: "Comcast 322/22, Frontier 33",
           channelDesc: "Public affairs programming by MetroEast partners",
           channelThumbnail: "/img/channel_PublicAffairs-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
             "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/207?fullscreen=true&showtabssearch=false&autostart=true"
         },
@@ -228,6 +236,7 @@ export const tempState = {
           channelDesc:
             "Education & Arts programming from a variety of sources.",
           channelThumbnail: "/img/channel_Education-Arts-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
             "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/208?fullscreen=true&showtabssearch=false&autostart=true"
         },
@@ -238,6 +247,7 @@ export const tempState = {
           channelDesc:
             "Programming by MetroEast and other community media centers.",
           channelThumbnail: "/img/channel_Regional-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
             "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/209?fullscreen=true&showtabssearch=false&autostart=true"
         },
@@ -247,6 +257,7 @@ export const tempState = {
           channelAssignment: "Comcast 330/38, Frontier 38",
           channelDesc: "Programming focused on regional municipal government.",
           channelThumbnail: "/img/channel_Municipal-175x125.png",
+          channelStremFormat: "HLS",
           channelStreamURI:
             "https://videoplayer.telvue.com/player/5QlcS026fQy98qR8aFzKSh5DvYNq1NKn/stream/210?fullscreen=true&showtabssearch=false&autostart=true"
         }
@@ -266,10 +277,10 @@ export const tempState = {
       stationEmail: "info@opensignalpdx.org",
       stationWebsite: "https://www.opensignalpdx.org/",
       stationLanguages: [],
-      stationAutomation: "Tightrope",
-      stationAutoVersion: "2.0",
+      stationAutomation: "",
+      stationAutoVersion: "",
       stationChannelRegEx: "",
-      stationSchedURI: "https://hc1.mctv.org/xml/program_schedule_feed/",
+      stationSchedURI: "",
       stationSchedule: [],
       stationChannels: [
         {
@@ -277,6 +288,7 @@ export const tempState = {
           channelAssignment: "",
           channelDesc: "",
           channelThumbnail: "",
+          channelStremFormat: "",
           channelStreamURI: ""
         }
       ]

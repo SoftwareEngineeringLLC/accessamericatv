@@ -1,0 +1,139 @@
+                            {{
+                              /*}
+                              (sched = this.state.station.channelSched[channel.channelID])
+
+                              
+                            (
+                              sched.map(entry => (
+                                <Row>
+                                  <Col xs="auto">
+                                    <Moment format="M/DD/YY h:mm A">
+                                      {new Date(entry.start)}
+                                    </Moment>
+                                    {" - "}
+                                    <Moment format="h:mm A">
+                                      {new Date(entry.end)}
+                                    </Moment>
+                                  </Col>
+                                  <Col>
+                                    <b>{entry.title}</b>
+                                    <br />
+                                    {entry.desc}
+                                  </Col>
+                                </Row>
+                              ))
+                            )
+                              */
+                            }}
+                            {console.log("sched2", sched)}
+                            {/* Channel Schedule **************************** */}
+                            {/* 
+                            <Accordion>
+                              {this.state.station.stationChannels.map(
+                                channel => (
+                                  <Card>
+                                    <Accordion.Toggle
+                                      as={Card.Header}
+                                      eventKey={channel.channelID}
+                                    >
+                                      <Row>
+                                        <Col>
+                                          <b>
+                                            Channel {channel.channelID} -{" "}
+                                            {channel.channelTitle}
+                                          </b>
+                                        </Col>
+                                        <Col>
+                                          <i>{channel.channelAssignment}</i>
+                                        </Col>
+                                      </Row>
+                                    </Accordion.Toggle>
+                                    <Accordion.Collapse
+                                      eventKey={channel.channelID}
+                                    >
+                                      <Card.Body>
+                            }
+                            {
+                              (sched = JSON.parse(
+                                JSON.stringify(
+                                  this.state.station.channelSched[
+                                    channel.channelID
+                                  ]
+                                )
+                              ))
+                            }
+                            {console.log("sched", sched)}
+                            {/*
+                            sched.map(entry => (
+                            <Row>
+                              <Col xs="auto">
+                                <Moment format="M/DD/YY h:mm A">
+                                  {new Date(entry.start)}
+                                </Moment>
+                                {" - "}
+                                <Moment format="h:mm A">
+                                  {new Date(entry.end)}
+                                </Moment>
+                              </Col>
+                              <Col>
+                                <b>{entry.title}</b>
+                                <br />
+                                {entry.desc}
+                              </Col>
+                            </Row>
+                            ) 
+                                      </Card.Body>
+                                    </Accordion.Collapse>
+                                  </Card>
+                                )
+                              )}
+                            </Accordion>
+                            {/* ********************************************* */}
+                            
+                            
+                            
+                                                      {/* 
+                          {
+                            (sched = JSON.parse(
+                              JSON.stringify(
+                                this.state.station.channelSched[
+                                  channel.channelID
+                                ]
+                              )
+                            ))
+                          }
+
+ */}{" "}
+
+ 
+ 
+ 
+                    
+                    
+{this.state.station.channelSched[
+                              channel.channelID
+                            ].map(entry => (
+                              <Row>
+                                <Col xs="auto">
+                                  <Moment format="M/DD/YY h:mm A">
+                                    {new Date(entry.start)}
+                                  </Moment>
+                                  {" - "}
+                                  <Moment format="h:mm A">
+                                    {new Date(entry.end)}
+                                  </Moment>
+                                </Col>
+                                <Col>
+                                  <b>{entry.title}</b>
+                                  <br />
+                                  {entry.desc}
+                                </Col>
+                              </Row>
+                            ))}
+                            (sched = JSON.parse( JSON.stringify(
+                            this.state.station.channelSched[
+                            channel.channelID ] ) )) }
+                            {console.log("sched", sched)}
+                            */}
+
+
