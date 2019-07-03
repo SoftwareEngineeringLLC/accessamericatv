@@ -159,7 +159,7 @@ export const tempState = {
       stationLanguages: [],
       stationAutomation: "",
       stationAutoVersion: "",
-      stationChannelRegEx: "",
+      stationSchedRegEx: "",
       stationSchedURI: "",
       stationSchedule: [],
       stationChannels: [
@@ -197,7 +197,7 @@ export const tempState = {
       ],
       stationAutomation: "Telvue",
       stationAutoVersion: "2.0",
-      stationChannelRegEx: "^d+)",
+      stationSchedRegEx: "^d+)",
       stationSchedURI: "https://hc1.mctv.org/xml/program_schedule_feed/",
       stationSchedule: [],
       stationChannels: [
@@ -280,7 +280,7 @@ export const tempState = {
       stationLanguages: [],
       stationAutomation: "",
       stationAutoVersion: "",
-      stationChannelRegEx: "",
+      stationSchedRegEx: "",
       stationSchedURI: "",
       stationSchedule: [],
       stationChannels: [
@@ -296,6 +296,7 @@ export const tempState = {
     }
   ]
 };
+<<<<<<< HEAD
 
 // mappingTelvueSched
 // The fields returned by the JSON mapping of the XML returned by the Telvue

@@ -67,7 +67,7 @@ export function getSchedJSON(currentState) {
   var data = JSON.parse(JSON.stringify(schedJSON));
   // **********************************************
 
-  // var regex = currentState.stationChannelRegEx;
+  // var regex = currentState.stationSchedRegEx;
   var autoType = currentState.stationAutomation;
   var channelSched = [];
 
@@ -243,3 +243,5 @@ export function getCurrentStation() {
   }
   return stations.filter(isCurrent)[0];
 }
+<<<<<<< HEAD
+=======
