@@ -13,12 +13,24 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import DropdownItem from "react-bootstrap/DropdownItem";
 
 import Moment from "react-moment";
+<<<<<<< HEAD
 import ReactHLS from "react-hls";
 import "video-react/dist/video-react.css";
 import { SizeMe } from "react-sizeme";
 
 import ColoredLine from "./ColoredLine";
 
+=======
+
+import ColoredLine from "./ColoredLine";
+
+import { SizeMe } from "react-sizeme";
+
+import ReactHLS from "react-hls";
+
+import "video-react/dist/video-react.css";
+
+>>>>>>> master
 import { getSchedJSON } from "./helpers";
 
 var currentState = {};
@@ -85,6 +97,7 @@ class Stream extends React.Component {
     this.setState({
       station: currentState.station
     });
+<<<<<<< HEAD
     // console.log("updateStation");
     // console.log(currentState.station);
   };
@@ -99,18 +112,44 @@ class Stream extends React.Component {
     var sched = JSON.stringify(e);
     console.log("showSched");
     console.log(sched);
+=======
+    console.log("updateStation");
+    console.log(currentState.station);
+  };
+
+  showVideo = e => {
+    var v = JSON.stringify(e);
+    // console.log("showVideo");
+    // console.log(v);
+  };
+
+  showSched = e => {
+    var s = JSON.stringify(e);
+    console.log("showSched");
+    console.log(s);
+>>>>>>> master
   };
 
   channelStream = e => {
     var channelStreamURI = String(e);
+<<<<<<< HEAD
     console.log("channelStream");
     console.log(channelStreamURI);
+=======
+    // console.log("channelStream");
+    // console.log(channelStreamURI);
+>>>>>>> master
   };
 
   channelSched = e => {
     var channelSchedURI = String(e);
+<<<<<<< HEAD
     console.log("channelSchedURI");
     console.log(channelSchedURI);
+=======
+    // console.log("channelSchedURI");
+    // console.log(channelSchedURI);
+>>>>>>> master
   };
 
   componentWillMount() {
@@ -129,6 +168,10 @@ class Stream extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
+=======
+    var sched = [];
+>>>>>>> master
     var schedule = currentState.station.channelSched;
 
     console.log("schedule", schedule);

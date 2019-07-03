@@ -11,6 +11,10 @@ export const defaultSchedEntry = {
   genre: "",
   series: "",
   episode: "",
+<<<<<<< HEAD
+=======
+  guid: "",
+>>>>>>> master
   damID: "",
   attribute: [
     {
@@ -31,7 +35,10 @@ export const defaultSchedEntry = {
 
 export const defaultState = {
   homeID: "MetroEast",
+<<<<<<< HEAD
   homeThumbnail: "/img/metroeast_logo_111x70.png",
+=======
+>>>>>>> master
   homeServerURI: "https://dam.metroeast.org",
   currentStationID: "MetroEast",
   lastUpdated: "1560559380601",
@@ -40,7 +47,11 @@ export const defaultState = {
     {
       stationID: "MetroEast",
       stationServerURI: "https://dam.metroeast.org",
+<<<<<<< HEAD
       stationThumbnail: "/img/metroeast_logo_111x70.png", // should be https
+=======
+      stationThumbnail: "/img/metroeast_logo_111x70.png",
+>>>>>>> master
       stationName: "MetroEast Community Media",
       stationStreet: "829 NE 8th Street",
       stationCity: "Gresham",
@@ -61,7 +72,11 @@ export const defaultState = {
       ],
       stationAutomation: "Telvue",
       stationAutoVersion: "2.0",
+<<<<<<< HEAD
       stationSchedRegEx: "^d+)",
+=======
+      stationChannelRegEx: "^d+)",
+>>>>>>> master
       stationSchedURI: "https://hc1.mctv.org/xml/program_schedule_feed/",
       stationSchedule: [],
       stationChannels: [
@@ -132,7 +147,10 @@ export const defaultState = {
   ]
 };
 
+<<<<<<< HEAD
 // **********************************************************************
+=======
+>>>>>>> master
 // ************** TEMPORARY PLACEHOLDER FOR DAM-FREE DEMO ***************
 // defaultState
 // This is filled in by
@@ -296,6 +314,7 @@ export const tempState = {
     }
   ]
 };
+<<<<<<< HEAD
 
 // mappingTelvueSched
 // The fields returned by the JSON mapping of the XML returned by the Telvue
@@ -345,3 +364,5 @@ export const telvueSchedMap = {
     }
   ]
 };
+=======
+>>>>>>> master

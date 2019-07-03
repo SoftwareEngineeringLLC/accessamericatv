@@ -11,10 +11,20 @@ import NavbarBrand from "react-bootstrap/NavbarBrand";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import Nav from "react-bootstrap/Nav";
+<<<<<<< HEAD
+=======
+// import NavLink from "react-bootstrap/NavLink";
+// import NavItem from "react-bootstrap/NavItem";
+// import { LinkContainer } from "react-router-bootstrap/lib/LinkContainer";
+>>>>>>> master
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+<<<<<<< HEAD
+=======
+import imgLogo from "./img/metroeast_logo_111x70.png";
+>>>>>>> master
 // import imgPlay from "./img/noun_Play_961762_50x50.png";
 // import imgExplore from "./img/noun_Explorer_1749805_50x50.png";
 // import imgLibrary from "./img/noun_Library_2269599_50x50.png";
@@ -51,7 +61,11 @@ const BaseLayout = () => (
         <Row>
           <Col>
             <Image
+<<<<<<< HEAD
               src={currentState.homeThumbnail}
+=======
+              src={imgLogo}
+>>>>>>> master
               width="55"
               height="35"
               className="d-inline-block align-top"
@@ -162,12 +176,18 @@ class App extends React.Component {
     super(props, context);
     // initial blank state
     this.state = defaultState;
+<<<<<<< HEAD
     this.state = {
       station: {}
     };
 
     // console.log("Home constructor");
     // console.log(this.state);
+=======
+    this.state = { station: {} };
+    // console.log("App.constructor");
+    // console.log(this);
+>>>>>>> master
   }
 
   componentWillMount() {
@@ -180,6 +200,12 @@ class App extends React.Component {
     currentState.station = currentState.stations.filter(isCurrent)[0];
 
     this.setState(currentState);
+<<<<<<< HEAD
+=======
+
+    // console.log("App.componentWillMount");
+    // console.log(currentState);
+>>>>>>> master
   }
 
   render() {
