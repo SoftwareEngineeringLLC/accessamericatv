@@ -11,21 +11,16 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 
 import ColoredLine from "./ColoredLine";
-
-var currentState = {};
 
 class Explore extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.currentState;
-    currentState = this.state;
 
-    console.log("Explore constructor");
-    console.log(this.state);
+    // console.log("Explore constructor");
+    // console.log(this.state);
   }
 
   render() {

@@ -11,7 +11,6 @@ export const defaultSchedEntry = {
   genre: "",
   series: "",
   episode: "",
-  guid: "",
   damID: "",
   attribute: [
     {
@@ -32,6 +31,7 @@ export const defaultSchedEntry = {
 
 export const defaultState = {
   homeID: "MetroEast",
+  homeThumbnail: "/img/metroeast_logo_111x70.png",
   homeServerURI: "https://dam.metroeast.org",
   currentStationID: "MetroEast",
   lastUpdated: "1560559380601",
@@ -40,7 +40,7 @@ export const defaultState = {
     {
       stationID: "MetroEast",
       stationServerURI: "https://dam.metroeast.org",
-      stationThumbnail: "/img/metroeast_logo_111x70.png",
+      stationThumbnail: "/img/metroeast_logo_111x70.png", // should be https
       stationName: "MetroEast Community Media",
       stationStreet: "829 NE 8th Street",
       stationCity: "Gresham",
@@ -61,7 +61,7 @@ export const defaultState = {
       ],
       stationAutomation: "Telvue",
       stationAutoVersion: "2.0",
-      stationChannelRegEx: "^d+)",
+      stationSchedRegEx: "^d+)",
       stationSchedURI: "https://hc1.mctv.org/xml/program_schedule_feed/",
       stationSchedule: [],
       stationChannels: [
@@ -132,6 +132,7 @@ export const defaultState = {
   ]
 };
 
+// **********************************************************************
 // ************** TEMPORARY PLACEHOLDER FOR DAM-FREE DEMO ***************
 // defaultState
 // This is filled in by
@@ -290,6 +291,55 @@ export const tempState = {
           channelThumbnail: "",
           channelStremFormat: "",
           channelStreamURI: ""
+        }
+      ]
+    }
+  ]
+};
+
+// mappingTelvueSched
+// The fields returned by the JSON mapping of the XML returned by the Telvue
+// automation system will be mapped to those corresponding to the named fields
+// in the defaultStreamState.
+//
+// The channelID field is determined by parsing the first characters in the
+// returned Telvue structure, delimited by a ")" character. These characters
+// will be read as digits and mapped to the channelID field; channels whose
+// leading characters in the title field will be ignored and discarded. Fields
+// with null in this structure will also be ignored when parsing the returned
+// JSON.
+//
+// As other automation systems are supported, their schedule format will be
+// defined in similar data structures
+export const telvueSchedMap = {
+  version: "stations.stationAutoVersion",
+  channel: [
+    {
+      title: "stationSchedule.channelID",
+      description: null,
+      item: [
+        {
+          title: "stationSchedule.title",
+          pubDate: "stationSchedule.start",
+          end_datetime: "stationSchedule.end",
+          duration: "stationSchedule.duration",
+          programCode:
+            "stationSchedule.attribute[{name: 'programCode', text:''}]",
+          episode: "stationSchedule.episode",
+          episodeCode:
+            "stationSchedule.attribute[{name: 'episodeCode', text:''}]",
+          thumbnail: "stationSchedule.thumbnail",
+          attribute: [
+            {
+              name: "stationSchedule.attribute[{name: '', text:''}]",
+              text: "stationSchedule.attribute[{name: '', text:''}]"
+            }
+          ],
+          description: "stationSchedule.desc",
+          link: "stationSchedule.attribute[{name: 'link', text:''}]",
+          category: "stationSchedule.genre",
+          vodURL: "stationSchedule.attribute[{name: 'vodURL', text:''}]",
+          guid: "stationSchedule.attribute[{name: 'guid', text:''}]"
         }
       ]
     }
