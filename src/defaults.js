@@ -296,7 +296,6 @@ export const tempState = {
     }
   ]
 };
-<<<<<<< HEAD
 
 // mappingTelvueSched
 // The fields returned by the JSON mapping of the XML returned by the Telvue

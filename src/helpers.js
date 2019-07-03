@@ -243,5 +243,3 @@ export function getCurrentStation() {
   }
   return stations.filter(isCurrent)[0];
 }
-<<<<<<< HEAD
-=======
