@@ -131,7 +131,7 @@ class Stream extends React.Component {
   render() {
     var schedule = currentState.station.channelSched;
 
-    console.log("schedule", schedule);
+    // console.log("schedule", schedule);
 
     return (
       <div>
