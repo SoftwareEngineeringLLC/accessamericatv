@@ -1,13 +1,8 @@
 // Home.js
 
 import React from "react";
-import Image from "react-bootstrap/Image";
 
 import Stream from "./Stream";
-
-const theOneFunc = delay => {
-  console.log("Hello after " + delay + " seconds");
-};
 
 class Home extends React.Component {
   constructor(props) {

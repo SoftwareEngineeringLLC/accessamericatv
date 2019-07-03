@@ -1,14 +1,9 @@
 // helpers.js
 import React from "react";
 
-import { moment } from "moment";
-
 import { defaultState } from "./defaults";
 import { defaultSchedEntry } from "./defaults";
-
 import schedJSON from "./MetroEastSched.json";
-
-// var stationSchedURI = {};
 
 export function isEmpty(obj) {
   for (var key in obj) {
@@ -24,21 +19,19 @@ export class StationSched extends React.Component {
       station: this.props.station,
       schedData: null
     };
-
     // console.log("StationSched constructor");
     // console.log(this.state);
   }
 
   componentDidMount() {
     // get stationSchedURI
-    const coProxy = "https://crossorigin.me/";
-    const coProxyURI = String(coProxy + this.state.station.stationSchedURI);
+    // const coProxy = "https://crossorigin.me/";
+    // const coProxyURI = String(coProxy + this.state.station.stationSchedURI);
 
     // console.log("stationSchedURI");
     // console.log(coProxyURI);
 
     var data = getSchedJSON(this.state.station);
-
     this.setState({ schedData: data });
   }
 
@@ -74,8 +67,8 @@ export function getSchedJSON(currentState) {
   var data = JSON.parse(JSON.stringify(schedJSON));
   // **********************************************
 
+  // var regex = currentState.stationChannelRegEx;
   var autoType = currentState.stationAutomation;
-  var regex = currentState.stationChannelRegEx;
   var channelSched = [];
 
   switch (autoType) {
@@ -91,7 +84,8 @@ export function getSchedJSON(currentState) {
         channelSched = [];
         // loop through each schedule entry
         for (var sched of entry.item) {
-          var schedEntry = JSON.parse(JSON.stringify(defaultSchedEntry));
+          // force a clone so we don't get a reference
+          schedEntry = JSON.parse(JSON.stringify(defaultSchedEntry));
 
           // get the current channel number
           schedEntry.channelID = entry.title.charAt(0);
@@ -249,52 +243,3 @@ export function getCurrentStation() {
   }
   return stations.filter(isCurrent)[0];
 }
-
-// mappingTelvueSched
-// The fields returned by the JSON mapping of the XML returned by the Telvue
-// automation system will be mapped to those corresponding to the named fields
-// in the defaultStreamState.
-//
-// The channelID field is determined by parsing the first characters in the
-// returned Telvue structure, delimited by a ")" character. These characters
-// will be read as digits and mapped to the channelID field; channels whose
-// leading characters in the title field will be ignored and discarded. Fields
-// with null in this structure will also be ignored when parsing the returned
-// JSON.
-//
-// As other automation systems are supported, their schedule format will be
-// defined in similar data structures
-/* 
-export const mappingTelvueSched = {
-  version: "stations.stationAutoVersion",
-  channel: [
-    {
-      title: "stationSchedule.channelID",
-      description: null,
-      item: [
-        {
-          title: "stationSchedule.title",
-          pubDate: "stationSchedule.startDate",
-          end_datetime: "stationSchedule.endDate",
-          duration: "stationSchedule.duration",
-          programCode: "stationSchedule.programCode",
-          episode: "stationSchedule.episode",
-          episodeCode: "stationSchedule.episodeCode",
-          thumbnail: "stationSchedule.thumbnail",
-          attribute: [
-            {
-              name: "stationSchedule.attribute.name",
-              text: "stationSchedule.attribute.text"
-            }
-          ],
-          description: "stationSchedule.description",
-          link: "stationSchedule.linkURI",
-          category: "stationSchedule.category",
-          vodURL: "stationSchedule.vodURI",
-          guid: "stationSchedule.guid"
-        }
-      ]
-    }
-  ]
-};
- */

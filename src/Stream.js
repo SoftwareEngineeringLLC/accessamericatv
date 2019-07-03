@@ -13,14 +13,11 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import DropdownItem from "react-bootstrap/DropdownItem";
 
 import Moment from "react-moment";
-
-import ColoredLine from "./ColoredLine";
-
+import ReactHLS from "react-hls";
+import "video-react/dist/video-react.css";
 import { SizeMe } from "react-sizeme";
 
-import ReactHLS from "react-hls";
-
-import "video-react/dist/video-react.css";
+import ColoredLine from "./ColoredLine";
 
 import { getSchedJSON } from "./helpers";
 
@@ -88,32 +85,32 @@ class Stream extends React.Component {
     this.setState({
       station: currentState.station
     });
-    console.log("updateStation");
-    console.log(currentState.station);
+    // console.log("updateStation");
+    // console.log(currentState.station);
   };
 
   showVideo = e => {
-    var v = JSON.stringify(e);
-    // console.log("showVideo");
-    // console.log(v);
+    var video = JSON.stringify(e);
+    console.log("showVideo");
+    console.log(video);
   };
 
   showSched = e => {
-    var s = JSON.stringify(e);
+    var sched = JSON.stringify(e);
     console.log("showSched");
-    console.log(s);
+    console.log(sched);
   };
 
   channelStream = e => {
     var channelStreamURI = String(e);
-    // console.log("channelStream");
-    // console.log(channelStreamURI);
+    console.log("channelStream");
+    console.log(channelStreamURI);
   };
 
   channelSched = e => {
     var channelSchedURI = String(e);
-    // console.log("channelSchedURI");
-    // console.log(channelSchedURI);
+    console.log("channelSchedURI");
+    console.log(channelSchedURI);
   };
 
   componentWillMount() {
@@ -132,7 +129,6 @@ class Stream extends React.Component {
   }
 
   render() {
-    var sched = [];
     var schedule = currentState.station.channelSched;
 
     console.log("schedule", schedule);
