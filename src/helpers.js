@@ -74,13 +74,11 @@ export function getSchedJSON(currentState) {
   switch (autoType) {
     case "Telvue":
       // exclude any non-active channels
-      var validChannels = data.rss.channel.filter(channel =>
+      var validChannels = data.channel.filter(channel =>
         channel.hasOwnProperty("item")
       );
       // loop through channels
       for (var entry of validChannels) {
-        // clone empty channelSched
-        // channelSched = [JSON.parse(JSON.stringify(defaultSchedEntry))];
         channelSched = [];
         // loop through each schedule entry
         for (var sched of entry.item) {
@@ -89,16 +87,17 @@ export function getSchedJSON(currentState) {
 
           // get the current channel number
           schedEntry.channelID = entry.title.charAt(0);
+
           schedEntry.start = sched.hasOwnProperty("pubDate")
             ? Date.parse(sched.pubDate)
             : "";
 
           schedEntry.end = sched.hasOwnProperty("end_datetime")
-            ? Date.parse(sched.end_datetime.__text)
+            ? Date.parse(sched.end_datetime)
             : "";
 
           schedEntry.duration = sched.hasOwnProperty("duration")
-            ? parseInt(sched.duration.__text)
+            ? parseInt(sched.duration)
             : "0";
 
           schedEntry.title = sched.hasOwnProperty("title") ? sched.title : "";
@@ -130,14 +129,21 @@ export function getSchedJSON(currentState) {
             channelSched.push(schedEntry);
           }
         }
-        // add channel schedule to the eschedules
+        // add channel schedule to the schedules
         schedule.push(channelSched);
       }
+      console.log("schedule", schedule);
 
+      break;
+
+    case "Tightrope":
+      console.log("Tightrope schedules not yet supported");
+      console.log("currentState:", currentState);
       break;
 
     default:
       console.log("Invalid stationAutomation!");
+      console.log("currentState:", currentState);
   }
 
   // console.log("parseSchedJSON");
@@ -175,7 +181,7 @@ export function initAppState() {
   var key;
   var currentState = defaultState;
   // **************************************************
-  localStorage.clear();
+  // localStorage.clear();
   // **************************************************
   // is this the first run?
   if (!localStorage.hasOwnProperty("homeID")) {

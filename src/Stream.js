@@ -13,8 +13,8 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import DropdownItem from "react-bootstrap/DropdownItem";
 
 import Moment from "react-moment";
-import ReactHLS from "react-hls";
-import "video-react/dist/video-react.css";
+import ReactPlayer from "react-player";
+// import ReactHLS from "react-hls";
 import { SizeMe } from "react-sizeme";
 
 import ColoredLine from "./ColoredLine";
@@ -216,8 +216,8 @@ class Stream extends React.Component {
               >
                 {this.state.stations.map(station => (
                   <DropdownItem eventKey={station.stationID}>
-                    <b>{station.stationID}</b>: {this.state.station.stationCity}
-                    , {this.state.station.stationState}
+                    <b>{station.stationID}</b>: {station.stationCity},{" "}
+                    {station.stationState}
                   </DropdownItem>
                 ))}
               </DropdownButton>
@@ -236,6 +236,7 @@ class Stream extends React.Component {
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey={channel.channelID}>
                   <Row>
+                    {/* 
                     <Col xs="auto">
                       <Image
                         height="60px"
@@ -243,6 +244,7 @@ class Stream extends React.Component {
                         src={channel.channelThumbnail}
                       />
                     </Col>
+ */}
                     <Col>
                       <Row>
                         <Col>
@@ -260,9 +262,6 @@ class Stream extends React.Component {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={channel.channelID}>
                   <Card.Body>
-                    {/* *************************************** */}
-                    {/* Channel Schedule ********************** */}
-                    {/* *************************************** */}
                     <Accordion>
                       <Card>
                         <Accordion.Toggle
@@ -273,42 +272,52 @@ class Stream extends React.Component {
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey={channel.channelID}>
                           <Card.Body>
-                            {this.state.station.channelSched[
-                              channel.channelID - 1
-                            ].map(entry => (
-                              <Row>
-                                <Col xs={3}>
-                                  <Moment format="M/DD h:mma">
-                                    {new Date(entry.start)}
-                                  </Moment>
-                                  {"-"}
-                                  <Moment format="h:mma">
-                                    {new Date(entry.end)}
-                                  </Moment>
-                                </Col>
-                                <Col>
-                                  <b>{entry.title}</b>
-                                  <br />
-                                  {entry.desc}
-                                </Col>
-                              </Row>
-                            ))}
+                            {/* ********************************************* */}
+                            {/* Channel Schedule **************************** */}
+                            {/* ********************************************* */}
+                            {schedule.length > 0 ? (
+                              schedule[channel.channelID - 1].map(entry => (
+                                <Row>
+                                  <Col xs={3}>
+                                    <Moment format="M/DD h:mma">
+                                      {new Date(entry.start)}
+                                    </Moment>
+                                    {"-"}
+                                    <Moment format="h:mma">
+                                      {new Date(entry.end)}
+                                    </Moment>
+                                  </Col>
+                                  <Col>
+                                    <b>{entry.title}</b>
+                                    <br />
+                                    {entry.desc}
+                                  </Col>
+                                </Row>
+                              ))
+                            ) : (
+                              <span>
+                                Oops! We're sorry, but the schedule for Channel{" "}
+                                {channel.channelID} is currently unavailable
+                              </span>
+                            )}
                           </Card.Body>
                         </Accordion.Collapse>
                       </Card>
                     </Accordion>
-
+                    {/* ********************************************* */}
                     <br />
                     {/* *************************************** */}
                     {/* Channel Stream ************************ */}
                     {/* *************************************** */}
                     <SizeMe
                       render={({ size }) => (
-                        <ReactHLS
-                          playsinline="true"
-                          width={size.width}
-                          height={size.height}
+                        <ReactPlayer
                           url={channel.channelStreamURI}
+                          width="100%"
+                          /*  width={size.width}
+                          height={size.height} */
+                          controls="true"
+                          file="forceHLS"
                         />
                       )}
                     />
